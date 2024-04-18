@@ -38,6 +38,7 @@ class CountSinglePyFileNotes:
         self.total_letter_number: int = 0
         self.notes_letter_percentage: float = 0.0
         self.__analyze_file(file_path)
+        self.__fix_note_dict()
         self.__calculate_notes_line_percentage()
         self.__calculate_notes_letter_percentage()
 
@@ -114,6 +115,18 @@ class CountSinglePyFileNotes:
 
     def __add_note(self, line_number: int, note_content: str) -> None:
         self.notes_dict[line_number] = note_content
+
+    def __fix_note_dict(self) -> None:
+        """
+        修正 notes_dict，尝试去除多行注释间的正常代码行，不完美，但能解决大部分情况
+        """
+        for k, v in list(self.notes_dict.items()):
+            if '"""' in v or "'''" in v:
+                self.notes_dict.pop(k)
+            elif v.startswith(","):
+                self.notes_dict.pop(k)
+            elif "+" in v and v.endswith("= "):
+                self.notes_dict.pop(k)
 
     def __analyze_file(self, file_path: Path) -> None:
         """

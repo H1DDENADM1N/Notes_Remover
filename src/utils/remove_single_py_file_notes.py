@@ -94,8 +94,21 @@ class RemoveSinglePyFileNotes:
             self.__remove_multi_line_comment(match)
 
     def __remove_multi_line_comment(self, match: re.Match) -> None:
-        self.file_content = self.file_content.replace(f"{match[0]}\n", "", 1)
-        logger.info(f"Removed multi-line comment: {match[0]}")
+        # Except some special cases
+        if "'''" in match[0] or "print(" in match[0]:
+            logger.info(f"Skipped multi-line comment including quotes: {match[0]}")
+            return
+        elif match[0].startswith(","):
+            logger.info(f"Skipped multi-line comment starting with comma: {match[0]}")
+            return
+        elif "+" in match[0] and match[0].endswith("= "):
+            logger.info(
+                f"Skipped multi-line comment starting with plus sign and ending with equal sign: {match[0]}"
+            )
+            return
+        else:
+            self.file_content = self.file_content.replace(f"{match[0]}\n", "", 1)
+            logger.info(f"Removed multi-line comment: {match[0]}")
 
 
 def test():
