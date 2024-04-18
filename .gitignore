@@ -1,0 +1,6 @@
+.venv/
+.vscode/
+.history/
+__pycache__/
+*.bak
+tests/
