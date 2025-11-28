@@ -1,12 +1,10 @@
 import json
 from pathlib import Path
 
-from loguru import logger
-
 if __name__ == "__main__":
-    from count_single_py_file_notes import CountSinglePyFileNotes
+    from single_py_file_handler import PyFileNotesAnalyzer
 else:
-    from src.utils.count_single_py_file_notes import CountSinglePyFileNotes
+    from src.utils.single_py_file_handler import PyFileNotesAnalyzer
 
 
 class CountFilesNotes:
@@ -41,9 +39,9 @@ class CountFilesNotes:
 
     def __analyze_each_py_file(self) -> None:
         for py_file_path in self.py_files_list:
-            count_single_file = CountSinglePyFileNotes(py_file_path)
+            count_single_file = PyFileNotesAnalyzer(py_file_path)
             # Get comment details in JSON format
-            json_notes_details = count_single_file.get_notes_details()
+            json_notes_details = count_single_file.get_details_json()
             # Store the JSON string in the results dictionary
             # key is the path to the file.
             # value is the comment information in JSON format.
@@ -72,12 +70,12 @@ class CountFilesNotes:
         print("=" * 80)
 
 
-def test():
-    folder_path = Path("tests\examples")
-    result = CountFilesNotes(folder_path)
-    result.print_notes_details()
-
-
 if __name__ == "__main__":
+
+    def test():
+        folder_path = Path("tests\examples")
+        result = CountFilesNotes(folder_path)
+        result.print_notes_details()
+
     print("Test print all .py files notes in ./tests/examples folder")
     test()

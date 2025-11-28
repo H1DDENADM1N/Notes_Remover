@@ -2,9 +2,8 @@ import sys
 import argparse
 from loguru import logger
 from pathlib import Path
-from src.utils.count_single_py_file_notes import CountSinglePyFileNotes
+from src.utils.single_py_file_handler import PyFileNotesAnalyzer, PyFileNotesRemover
 from src.utils.count_files_notes import CountFilesNotes
-from src.utils.remove_single_py_file_notes import RemoveSinglePyFileNotes
 from src.utils.remove_files_notes import RemoveFilesNotes
 from src.__init__ import __version__
 
@@ -65,7 +64,7 @@ def count_notes(args_path: Path) -> None:
         raise FileNotFoundError(f"File or directory not found: {args_path}")
 
     if args_path.is_file() and args_path.suffix == ".py":
-        result = CountSinglePyFileNotes(py_file_path := args_path)
+        result = PyFileNotesAnalyzer(py_file_path := args_path)
     elif args_path.is_dir():
         result = CountFilesNotes(folder_path := args_path)
     result.print_notes_details()
@@ -78,7 +77,7 @@ def remove_notes(args_path: Path) -> None:
         raise FileNotFoundError(f"File or directory not found: {args_path}")
 
     if args_path.is_file() and args_path.suffix == ".py":
-        RemoveSinglePyFileNotes(py_file_path := args_path)
+        PyFileNotesRemover(py_file_path := args_path)
     elif args_path.is_dir():
         RemoveFilesNotes(folder_path := args_path)
 

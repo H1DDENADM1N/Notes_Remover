@@ -3,9 +3,9 @@ from pathlib import Path
 from loguru import logger
 
 if __name__ == "__main__":
-    from remove_single_py_file_notes import RemoveSinglePyFileNotes
+    from single_py_file_handler import PyFileNotesRemover
 else:
-    from src.utils.remove_single_py_file_notes import RemoveSinglePyFileNotes
+    from src.utils.single_py_file_handler import PyFileNotesRemover
 
 
 class RemoveFilesNotes:
@@ -20,14 +20,14 @@ class RemoveFilesNotes:
     def __remove_notes(self):
         for py_file_path in Path(self.folder_path).rglob("*.py"):
             logger.info(f"Removing notes from {py_file_path}...")
-            RemoveSinglePyFileNotes(py_file_path)
-
-
-def test():
-    print("Test remove notes from .py files in ./tests/examples folder")
-    folder_path = Path("tests\examples")
-    RemoveFilesNotes(folder_path)
+            PyFileNotesRemover(py_file_path)
 
 
 if __name__ == "__main__":
+
+    def test():
+        print("Test remove notes from .py files in ./tests/examples folder")
+        folder_path = Path("tests\examples")
+        RemoveFilesNotes(folder_path)
+
     test()
