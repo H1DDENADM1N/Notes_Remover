@@ -330,8 +330,8 @@ class RemoveSinglePyFileNotes:
                     else:
                         new_lines.append(line)
                 else:
-                    # 完全移除注释行
-                    pass  # 不添加这一行
+                    # 保持空行以维持总行数不变
+                    new_lines.append("")
 
         # 写入文件
         new_content = "\n".join(new_lines)
