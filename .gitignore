@@ -3,4 +3,3 @@
 .history/
 __pycache__/
 *.bak
-tests/

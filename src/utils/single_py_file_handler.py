@@ -309,6 +309,10 @@ class PyFileNotesAnalyzer(BasePyFileProcessor):
             f"注释字母数：\t{self.notes_letter_number}\t\t总字母数：\t{self.total_letter_number}\t\t注释字母占比：\t{self.notes_letter_percentage:.0f}%\n"
         )
 
+    def print_notes_details(self) -> None:
+        """打印注释信息"""
+        self.print_details()
+
     def get_details_json(self) -> str:
         """获取注释信息并以JSON格式返回"""
         details = {

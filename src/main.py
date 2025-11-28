@@ -1,11 +1,10 @@
-import sys
 import argparse
-from loguru import logger
 from pathlib import Path
-from src.utils.single_py_file_handler import PyFileNotesAnalyzer, PyFileNotesRemover
+
+from src.__init__ import __version__
 from src.utils.count_files_notes import CountFilesNotes
 from src.utils.remove_files_notes import RemoveFilesNotes
-from src.__init__ import __version__
+from src.utils.single_py_file_handler import PyFileNotesAnalyzer, PyFileNotesRemover
 
 
 class ArgsConflictError(Exception):
