@@ -283,6 +283,7 @@ class PyFileNotesAnalyzer(BasePyFileProcessor):
             len(content) for content in self.notes_dict.values()
         )
         self.total_letter_number = len(self.file_content)
+        self.total_letter_number -= self.file_content.count("\n")  # 总字符数 排除换行符
 
         if self.total_line_number > 1:
             self.notes_line_percentage = (
